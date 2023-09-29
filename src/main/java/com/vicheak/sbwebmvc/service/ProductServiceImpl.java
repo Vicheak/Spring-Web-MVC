@@ -1,19 +1,25 @@
 package com.vicheak.sbwebmvc.service;
 
 import com.vicheak.sbwebmvc.model.Product;
+import com.vicheak.sbwebmvc.repository.ProductRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class ProductServiceImpl implements ProductService {
-    @Override
-    public void createNewProduct(Product product) {
 
+    private final ProductRepository productRepository;
+
+    @Override
+    public List<Product> loadProducts() {
+        return productRepository.select();
     }
 
     @Override
-    public void deleteProductById(Integer id) {
+    public void createNewProduct(Product product) {
 
     }
 
@@ -23,12 +29,13 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<Product> loadProducts() {
-        return null;
+    public void deleteProductById(Integer id) {
+
     }
 
     @Override
     public Product loadProductById(Integer id) {
-        return null;
+        return productRepository.selectById(id).orElseThrow();
     }
+
 }

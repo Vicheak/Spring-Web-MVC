@@ -13,5 +13,5 @@ public class Product {
     private String name;
     private String slug;
     private Double price;
-    private Boolean inStock;
+    private Boolean in_stock;
 }
