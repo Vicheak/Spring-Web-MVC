@@ -15,7 +15,7 @@ public class ProductController {
 
     private final ProductService productService;
 
-    @GetMapping(produces = "application/json")
+    @GetMapping
     public List<Product> getProducts() {
         return productService.loadProducts();
     }
@@ -44,17 +44,14 @@ public class ProductController {
         productService.deleteProductById(id);
     }
 
-    @GetMapping("/{id}/{slug}")
-    public Product getProductById(@PathVariable("id") Integer proId,
-                                  @PathVariable String slug) {
+    @GetMapping("/{id}")
+    public Product getProductById(@PathVariable("id") Integer proId) {
         return productService.loadProductById(proId);
     }
 
     @GetMapping("/search")
-    public List<Product> searchProduct(@RequestParam(required = false, defaultValue = "") String name, //@RequestParam("q") : set query string name
+    public List<Product> searchProduct(@RequestParam(required = false, defaultValue = "") String name,
                                        @RequestParam(required = false, defaultValue = "true") Boolean status) {
-        System.out.println("Name : " + name);
-        System.out.println("Status : " + status);
         return null;
     }
 
