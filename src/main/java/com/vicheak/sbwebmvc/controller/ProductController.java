@@ -33,9 +33,11 @@ public class ProductController {
         productService.updateProductById(id, newProduct);
     }
 
-    @PatchMapping
-    public String updateProductPartially() {
-        return "Update product partially";
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @PatchMapping("/{id}")
+    public void updateProductPartially(@PathVariable Integer id,
+                                       @RequestBody Product newProduct) {
+        productService.updateProductPartially(id, newProduct);
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
@@ -52,7 +54,7 @@ public class ProductController {
     @GetMapping("/search")
     public List<Product> searchProduct(@RequestParam(required = false, defaultValue = "") String name,
                                        @RequestParam(required = false, defaultValue = "true") Boolean status) {
-        return null;
+        return productService.searchProduct(name, status);
     }
 
 }

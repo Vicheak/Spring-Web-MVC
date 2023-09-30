@@ -2,6 +2,8 @@ package com.vicheak.sbwebmvc.model;
 
 import lombok.*;
 
+import java.util.List;
+
 //POJO : requires getter, setter, and no-args constructor
 @Getter
 @Setter
@@ -13,5 +15,9 @@ public class Product {
     private String name;
     private String slug;
     private Double price;
-    private Boolean in_stock;
+    private Boolean inStock;
+
+    //associated resources
+    private Supplier supplier;
+    private List<Category> categories;
 }
