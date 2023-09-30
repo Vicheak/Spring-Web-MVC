@@ -12,8 +12,12 @@ public interface ProductService {
 
     void updateProductById(Integer id, Product product);
 
+    void updateProductPartially(Integer id, Product product);
+
     void deleteProductById(Integer id);
 
     Product loadProductById(Integer id);
+
+    List<Product> searchProduct(String name, Boolean status);
 
 }
