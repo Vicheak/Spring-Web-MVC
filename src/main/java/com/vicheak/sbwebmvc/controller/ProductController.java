@@ -1,5 +1,8 @@
 package com.vicheak.sbwebmvc.controller;
 
+import com.vicheak.sbwebmvc.dto.CreateProductDto;
+import com.vicheak.sbwebmvc.dto.UpdateProductDto;
+import com.vicheak.sbwebmvc.dto.UpdateProductPartialDto;
 import com.vicheak.sbwebmvc.model.Product;
 import com.vicheak.sbwebmvc.service.ProductService;
 import lombok.RequiredArgsConstructor;
@@ -22,22 +25,26 @@ public class ProductController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public void createNewProduct(@RequestBody Product product) {
-        productService.createNewProduct(product);
+    public void createNewProduct(@RequestBody CreateProductDto createProductDto) {
+        //System.out.println(createProductDto.supplierId());
+        //System.out.println(createProductDto.categoryIds());
+        productService.createNewProduct(createProductDto);
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PutMapping("/{id}")
     public void updateProduct(@PathVariable Integer id,
-                              @RequestBody Product newProduct) {
-        productService.updateProductById(id, newProduct);
+                              @RequestBody UpdateProductDto updateProductDto) {
+        //System.out.println(updateProductDto.supplierId());
+        //System.out.println(updateProductDto.categoryIds());
+        productService.updateProductById(id, updateProductDto);
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PatchMapping("/{id}")
     public void updateProductPartially(@PathVariable Integer id,
-                                       @RequestBody Product newProduct) {
-        productService.updateProductPartially(id, newProduct);
+                                       @RequestBody UpdateProductPartialDto updateProductPartialDto) {
+        productService.updateProductPartially(id, updateProductPartialDto);
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)

@@ -14,6 +14,7 @@ public class Product {
     private Integer id;
     private String name;
     private String slug;
+    private String description;
     private Double price;
     private Boolean inStock;
 
