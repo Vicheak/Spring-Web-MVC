@@ -57,30 +57,24 @@ public class ProductServiceImpl implements ProductService {
         Product product = Product.builder()
                 .id(id)
                 .name(updateProductDto.name())
-                .slug(SlugUtil.toSlug(updateProductDto.name()))
                 .description(updateProductDto.description())
                 .supplier(Supplier.builder()
                         .id(updateProductDto.supplierId())
                         .build())
                 .build();
 
-        List<Integer> productCategoryIds = productRepository.selectProductCategoryIds(id);
-
-        if (updateProductDto.categoryIds().size() == productCategoryIds.size()) {
-            //Start updating the product
-            productRepository.update(product);
-
-            //Start updating the product category
-            for (int i = 0; i < productCategoryIds.size(); i++) {
-                productRepository.updateProductCategories(productCategoryIds.get(i),
-                        updateProductDto.categoryIds().get(i));
-            }
-
-            /*System.out.println("to update : ");
-            System.out.println(updateProductDto.categoryIds());
-            System.out.println("product category ids : ");
-            System.out.println(productCategoryIds);*/
+        if (product.getName() != null) {
+            product.setSlug(SlugUtil.toSlug(updateProductDto.name()));
         }
+
+        productRepository.update(product);
+
+        //reset product categories);
+        productRepository.deleteProductCategories(product.getId());
+
+        //Start inserting a product category
+        updateProductDto.categoryIds().forEach(catId ->
+                productRepository.insertProductCategories(product.getId(), catId));
     }
 
     @Transactional

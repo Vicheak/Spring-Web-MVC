@@ -26,8 +26,6 @@ public class ProductController {
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
     public void createNewProduct(@RequestBody CreateProductDto createProductDto) {
-        //System.out.println(createProductDto.supplierId());
-        //System.out.println(createProductDto.categoryIds());
         productService.createNewProduct(createProductDto);
     }
 
@@ -35,8 +33,6 @@ public class ProductController {
     @PutMapping("/{id}")
     public void updateProduct(@PathVariable Integer id,
                               @RequestBody UpdateProductDto updateProductDto) {
-        //System.out.println(updateProductDto.supplierId());
-        //System.out.println(updateProductDto.categoryIds());
         productService.updateProductById(id, updateProductDto);
     }
 
