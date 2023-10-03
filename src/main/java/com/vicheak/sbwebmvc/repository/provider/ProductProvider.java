@@ -1,5 +1,7 @@
 package com.vicheak.sbwebmvc.repository.provider;
 
+import com.vicheak.sbwebmvc.model.Product;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.builder.annotation.ProviderMethodResolver;
 import org.apache.ibatis.jdbc.SQL;
 
@@ -37,13 +39,21 @@ public class ProductProvider implements ProviderMethodResolver {
         }}.toString();
     }
 
-    public String update() {
+    public String update(@Param("pro") Product product) {
         return new SQL() {{
             UPDATE(TB_NAME);
-            SET("name = #{pro.name}");
-            SET("slug = #{pro.slug}");
-            SET("description = #{pro.description}");
-            SET("supplier_id = #{pro.supplier.id}");
+
+            if (product.getName() != null && product.getSlug() != null) {
+                SET("name = #{pro.name}");
+                SET("slug = #{pro.slug}");
+            }
+
+            if (product.getDescription() != null)
+                SET("description = #{pro.description}");
+
+            if (product.getSupplier() != null)
+                SET("supplier_id = #{pro.supplier.id}");
+
             WHERE("id = #{pro.id}");
         }}.toString();
     }
@@ -73,8 +83,8 @@ public class ProductProvider implements ProviderMethodResolver {
         }}.toString();
     }
 
-    public String deleteProductCategories(){
-        return new SQL(){{
+    public String deleteProductCategories() {
+        return new SQL() {{
             DELETE_FROM("products_categories");
             WHERE("product_id = #{proId}");
         }}.toString();
