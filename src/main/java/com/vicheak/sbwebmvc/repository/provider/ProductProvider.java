@@ -66,11 +66,16 @@ public class ProductProvider implements ProviderMethodResolver {
         }}.toString();
     }
 
-    public String updatePartially() {
+    public String updatePartially(@Param("pro") Product product) {
         return new SQL() {{
             UPDATE(TB_NAME);
-            SET("price = #{pro.price}");
-            SET("in_Stock = #{pro.inStock}");
+
+            if(product.getPrice() != null)
+                SET("price = #{pro.price}");
+
+            if(product.getInStock() != null)
+                SET("in_Stock = #{pro.inStock}");
+
             WHERE("id = #{pro.id}");
         }}.toString();
     }
