@@ -65,7 +65,7 @@ public interface ProductRepository {
     @Delete(
             """
                         DELETE FROM products
-                        WHERE id = #{id}                  
+                        WHERE id = #{id}                 
                     """)
     void delete(@Param("id") Integer id);
 
