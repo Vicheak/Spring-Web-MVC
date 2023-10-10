@@ -86,7 +86,9 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product loadProductById(Integer id) {
-        return productRepository.selectById(id).orElseThrow();
+        return productRepository.selectById(id).orElseThrow(
+                () -> new RuntimeException("Product with id = " + id + " not found")
+        );
     }
 
     @Override

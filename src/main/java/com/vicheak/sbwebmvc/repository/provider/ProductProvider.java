@@ -9,13 +9,15 @@ public class ProductProvider implements ProviderMethodResolver {
 
     private final String TB_NAME = "products";
 
-    public String selectByQueryString() {
+    public String selectByQueryString(@Param("proName") String name, @Param("status") Boolean status) {
         return new SQL() {{
             SELECT("*");
             FROM(TB_NAME);
-            WHERE("name LIKE #{proName}");
+            if(name != null)
+                WHERE("name LIKE '%' || #{proName} || '%'");
             AND();
-            WHERE("in_stock = #{status}");
+            if(status != null)
+                WHERE("in_stock = #{status}");
         }}.toString();
     }
 
